@@ -1,0 +1,40 @@
+{
+  "name": "hirundo",
+  "private": true,
+  "version": "0.0.0",
+  "description": "a Sails application",
+  "dependencies": {
+    "async": "latest",
+    "bcrypt": "latest",
+    "ejs": "latest",
+    "gm": "latest",
+    "grunt": "latest",
+    "holder": "0.0.0",
+    "moment": "^2.10.3",
+    "mongojs": "latest",
+    "optimist": "latest",
+    "passport": "~0.1.17",
+    "passport-local": "~0.1.6",
+    "sails": "0.9.8",
+    "sails-disk": "~0.9.0",
+    "sails-mongo": "~0.9.8"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "debug": "node debug app.js",
+    "test": "mocha && cucumber.js -f=pretty"
+  },
+  "main": "app.js",
+  "repository": "",
+  "author": "",
+  "license": "",
+  "devDependencies": {
+    "mocha": "~1.16.2",
+    "supertest": "~0.8.2",
+    "sails-memory": "~0.9.1",
+    "passport-stub": "~0.1.5",
+    "cucumber": "latest",
+    "zombie": "latest",
+    "lodash": "~2.4.1"
+  }
+}

@@ -1,0 +1,50 @@
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <% if (req.isAuthenticated()) { %>
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Cambiar navegacion</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">App novedades</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/<%- currentUser.username %>" id="navigation-profile"><span class="glyphicon glyphicon-user"></span></a></li>
+            <li class="dropdown">
+              <a href="#" id="navigation-tools" class="dropdown-toggle" data-toggle="dropdown">
+                <span class="glyphicon glyphicon-align-justify"></span>
+                <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="/settings/profile">Editar perfil</a></li>
+                <li class="divider"></li>
+                <li><a href="/logout">Salir</a></li>
+              </ul>
+            </li>
+          </ul>
+          <div class="col-sm-6 col-md-6">
+            <form action="/search" method="POST" class="navbar-form" role="search" method="get" id="search-form" name="search-form">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search" id="search-bar" name="terms" value="<% if (typeof search_items !== 'undefined') { %> <%- search_items %> <% } %>">
+                <div class="input-group-btn">
+                  <button type="submit" class="btn btn-success">
+                    <span class="glyphicon glyphicon-search"></span>
+                  </button>
+                </div>
+              </div>
+              <input type="hidden" name="_csrf" value="<%= _csrf %>">
+            </form>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <% } else {%>
+    <a class="navbar-brand" href="/">App novedades</a>
+    <% } %>
+  </div>
+</div>

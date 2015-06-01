@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--
+        For demonstration purposes, the `title` is dynamically set here based on
+        your `sails.config.appName` to show that you can inject data into layouts
+        exactly the same way as with your other view templates.
+    -->
+    <title><%- title %></title>
+
+    <!-- Viewport mobile tag for sensible mobile support -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+    <!--
+
+      Stylesheets
+      ========================
+
+      You can link any CSS, LESS, or image files in your `assets` directory
+      as you would normally: using <link/> tags.
+
+    -->
+
+    <!--
+
+      Support for LESS included by default
+      ================================================
+
+      LESS files are automatically compiled when they change using the Gruntfile
+      located in the top-level of this Sails app.  If you run into issues with styles
+      not reloading, check the Sails log output in your console for LESS compilation errors.
+      If necessary, shut down and then lift your app again.
+
+    -->
+    <link rel="stylesheet" type="text/css" href="/styles/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/styles/bootstrap-tagsinput.css">
+    <link rel="stylesheet" type="text/css" href="/styles/theme.css">
+    <link rel="stylesheet" type="text/css" href="/styles/main.css">
+  </head>
+
+  <body>
+
+    <!-- Include the view file for the current controller/route -->
+    <%- include layout/navigation.ejs %>
+    <%- body %>
+    <%- include layout/footer.ejs %>
+
+
+    <!--
+
+      Client-side Javascript
+      ========================
+
+      You can import any js files in your `assets` directory as you would
+      normally: using <script></script> tags.
+
+      Here's an example of importing a few dependencies, in order:
+    -->
+    <!-- Bring in the socket.io client -->
+    <script type="text/javascript" src="/js/socket.io.js"></script>
+    <!-- then beef it up with some convenience logic for talking to Sails.js -->
+    <script type="text/javascript" src="/js/sails.io.js"></script>
+    <!-- listen on socket.io for incoming messages -->
+    <script type="text/javascript" src="/js/app.js"></script>
+    <!-- jquery.js -->
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <!-- bootstrap.js -->
+    <script type="text/javascript" src="/js/bootstrap.js"></script>
+    <!-- underscore.js -->
+    <script type="text/javascript" src="/js/underscore.js"></script>
+    <!-- select2.js -->
+    <script type="text/javascript" src="/js/bootstrap-tagsinput.js"></script>
+    <!-- jquery.validate.js -->
+    <script type="text/javascript" src="/js/jquery.validate.js"></script>
+    <!-- jquery.charactercounter.js -->
+    <script type="text/javascript" src="/js/jquery.charactercounter.js"></script>
+
+    <!-- Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
+
+    <!-- Handle location in tweets -->
+    <script type="text/javascript">
+      $(document).on('click', '#get-tweet-location', function() {
+        var btn = $(this);
+        btn.button('loading');
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            $.ajax({
+              type: 'GET',
+              dataType: "json",
+              url: "http://maps.googleapis.com/maps/api/geocode/json?latlng=" +
+                position.coords.latitude + "," + position.coords.longitude + "&sensor=false&language=en",
+              data: {},
+              success: function(data) {
+                $.each(data['results'], function(i, val) {
+                  if (val['types'][0] == 'locality' && val['types'][1] == 'political') {
+                    $('#tweet-location').html('<button type="button" id="remove-tweet-location" class="btn btn-info" data-toggle="button">' + val['formatted_address'] + '</button><input type="hidden" name="location" value="' + val['formatted_address'] + '" />');
+                  }
+                });
+              },
+              error: function () { btn.button('reset'); }
+            });
+            btn.button('complete');
+          });
+        } else {
+          btn.button('reset');
+        }
+      });
+
+      $(document).on('click', '#remove-tweet-location', function() {
+        $('#tweet-location').html('<button type="button" data-loading-text="Loading..." id="get-tweet-location" class="btn btn-primary">Location</button>');
+      });
+    </script>
+
+    <!-- Handle file upload field in user settings -->
+    <script>
+      $(document).on('change', '.btn-file :file', function() {
+        var input = $(this);
+        var numFiles = input.get(0).files ? input.get(0).files.length : 1;
+        var label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        input.trigger('fileselect', [numFiles, label]);
+      });
+
+      $(document).ready( function() {
+        $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
+          var input = $(this).parents('.input-group').find(':text');
+          var log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+          if (input.length) {
+            input.val(log);
+          }
+        });
+      });
+    </script>
+
+    <!-- Handle tags in search -->
+    <script>
+      $(document).ready( function() {
+        $('#search-bar').tagsinput({
+          tagClass: function(item) {
+            item = item.trim();
+            if (item[0] == '@') {
+              return 'label label-success';
+            } else if (item[0] == '#') {
+              return 'label label-info';
+            } else {
+              return 'label label-warning'
+            }
+          },
+          confirmKeys: [13, 9, 32]
+        });
+      });
+    </script>
+
+    <!-- Handle form validation -->
+    <script>
+      $(document).ready( function() {
+        $('#login_form').validate();
+        $('#sign_up_form').validate({
+          rules: {
+            username: {
+              required: true,
+              maxlength: 20,
+              minlength: 5
+            },
+            password_confirmation: {
+              equalTo: '#password'
+            }
+          }
+        });
+        $('#profile_settings_form').validate({
+          rules: {
+            password_confirmation: {
+              equalTo: '#password'
+            }
+          }
+        });
+      });
+    </script>
+
+    <!-- Handle feed refresh -->
+    <script>
+      $(document).ready( function() {
+
+        $("#tweet-content").characterCounter({
+          limit: '140'
+        });
+
+
+        setInterval(function() {
+          $.get("/feed/last", function(data) {
+            $("#tweets-refresh").html(data);
+          });
+        }, 30000);
+
+      });
+    </script>
+
+    <!-- Your scripts here? -->
+    <!-- Your scripts here? -->
+    <!-- Your scripts here? -->
+
+
+    <!--
+
+      Looking for client-side CoffeeScript or TypeScript?
+      ================================================
+
+      CoffeeScript and TypeScript precompilation are not installed by default,
+      but if you'd like to mix those features in, it is straightforward to
+      `npm install` the relevant grunt community modules and modify your Gruntfile
+      to use them.
+
+    -->
+
+
+
+    <!--
+
+      Another way: The Asset Linker
+      ========================
+
+      Sails supports a Grunt-based asset linker, to automatically inject
+      <link> and <script> tags, as well any client-side templates you're using
+      into your HTML layouts and views, respecting dependencies.
+
+      You created this Sails app with the asset linker disabled.
+      If you change your mind, check out the docs on the subject:
+      http://sailsjs.org/#!documentation/asset-management
+
+    -->
+
+    </body>
+</html>

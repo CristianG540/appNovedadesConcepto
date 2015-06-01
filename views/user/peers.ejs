@@ -1,0 +1,26 @@
+<% if (users.length == 0) { %>
+  <div class="alert alert-info" style="margin: 0;">
+    <%= emptyMessage %>
+  </div>
+<% } %>
+<% _.each(users, function(user) { %>
+  <div class="media">
+    <a class="pull-left" href="#">
+      <img class="media-object" src="/photo/show/<%- user.id %>/64" alt="<%= user.username %>">
+    </a>
+    <div class="media-body">
+      <h4 class="media-heading"><a href="/<%- user.username %>"><%= user.username %></a></h4>
+      <%- user.bio %>
+
+      <div class="pull-right">
+        <% if (currentUser.id == user.id) { %>
+          This is you.
+        <% } else if (currentUser.following.indexOf(user.id) == -1) { %>
+          <a href="/follow/<%= user.username %>" class="btn btn-sm btn-primary">Follow</a>
+        <% } else { %>
+          <a href="/unfollow/<%= user.username %>" class="btn btn-sm btn-primary">Unfollow</a>
+        <% } %>
+      </div>
+    </div>
+  </div>
+<% }) %>

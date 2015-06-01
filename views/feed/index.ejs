@@ -1,0 +1,23 @@
+<div class="container" style="margin-top: 25px;">
+  <%- partial('../tweet/new.ejs') %>
+  <div class="row">
+
+    <div id="tweets-refresh" class="col-xs-6 feed-box">
+      <%- partial('../tweet/index.ejs', data) %>
+    </div>
+
+    <div class="col-xs-6">
+
+      <div id="tweets-refresh" class="row feed-box">
+        <div class="text-center"><h4>Alta Prioridad</h4></div>
+        <%- partial('../tweet/tweetAlta.ejs', data) %>
+      </div>
+      <div id="tweets-refresh" class="row feed-box">
+        <div class="text-center"><h4>Media Prioridad</h4></div>
+        <%- partial('../tweet/tweetMedia.ejs', data) %>
+      </div>
+
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,56 @@
+<form action="/user/update" enctype="multipart/form-data" method="POST" role="form" id="profile_settings_form">
+  <h2>Profile</h2>
+  <% if (flash && flash.err && flash.err.ValidationError) { %>
+  <ul class="alert alert-success">
+  <% Object.keys(flash.err.ValidationError).forEach(function(error) { %>
+    <li><%- JSON.stringify(flash.err.ValidationError[error]) %></li>
+  <% }) %>
+  </ul>
+  <% } %>
+  <div class="form-group">
+    <label for="name">Nombre</label>
+    <input type="text" class="form-control" name="name" id="name" value="<%= currentUser.name %>" maxlength="40" placeholder="Ingresa tu nombre">
+  </div>
+  <div class="form-group">
+    <label for="name">Institucion</label>
+    <input type="text" class="form-control" name="institution" id="institution" value="<%= currentUser.institution %>" maxlength="40" placeholder="Ingresa tu institucion">
+  </div>
+  <div class="form-group">
+    <label for="name">Cargo</label>
+    <input type="text" class="form-control" name="cargo" id="cargo" value="<%= currentUser.cargo %>" maxlength="40" placeholder="Ingresa tu cargo">
+  </div>
+  <div class="form-group">
+    <label for="bio">Bio</label>
+    <textarea class="form-control" name="bio" id="bio" placeholder="Resume tu biografia en 160 caracteres" maxlength="160"><%= currentUser.bio %></textarea>
+  </div>
+  <div class="form-group">
+    <label for="location">Ubicaion</label>
+    <input type="text" class="form-control" name="location" id="location" value="<%= currentUser.location %>" placeholder="Ingresa tu ubicacion">
+  </div>
+  <div class="form-group">
+    <label for="website">Sitio web</label>
+    <input type="text" class="form-control" name="website" id="website" value="<%= currentUser.website %>" placeholder="Ingresa tu sitio web">
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" class="form-control" name="password" id="password" placeholder="Ingresa tu nuevo password">
+  </div>
+  <div class="form-group">
+    <label for="password_confirmation">Repite el password</label>
+    <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Repite el password">
+  </div>
+  <div class="form-group">
+    <label for="photo">Foto</label>
+    <div class="input-group">
+      <span class="input-group-btn">
+        <span class="btn btn-primary btn-file">
+          Buscar <input type="file" name="photo" class="form-control" id="photo">
+        </span>
+      </span>
+      <input type="text" class="form-control" readonly>
+    </div>
+  </div>
+  <input type="submit" class="btn btn-primary btn-default" value="Actualizar">
+  <a class="btn btn-default btn-danger" href="/user/destroy">Eliminar</a>
+  <input type="hidden" name="_csrf" value="<%= _csrf %>">
+</form>

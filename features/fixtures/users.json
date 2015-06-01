@@ -1,0 +1,17 @@
+{
+  "Joe": {
+    "username": "joesomebody",
+    "email": "joe@hirundo.com",
+    "password": "badass",
+    "password_confirmation": "badass",
+    "name": "Joe Somebody",
+    "bio": "Joe's stunning bio!"
+  },
+
+  "Dewey": {
+    "username": "deweywey",
+    "email": "deweyy@hirundo.com",
+    "password": "chubybunny",
+    "password_confirmation": "chubybunny"
+  }
+}

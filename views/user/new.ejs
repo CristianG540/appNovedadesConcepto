@@ -1,0 +1,89 @@
+<form action="/user/create" method="POST" role="form" class="sign_up_form" id="sign_up_form">
+  <h2>Sign up</h2>
+
+  <% if (flash && flash.err && flash.err.username) { %>
+    <div class="alert alert-danger" style="padding-bottom:0px;">
+  <% } %>
+    <div class="form-group">
+      <label for="username">Nombre de usuario</label>
+      <input type="text" class="form-control" name="username" id="username" placeholder="Ingresa tu nombre de usuario" required/>
+      <% if (flash && flash.err && flash.err.username) { %>
+        <%- flash.err.username[0].message %>
+      <% } %>
+    </div>
+  <% if (flash && flash.err && flash.err.username) { %>
+    </div>
+  <% } %>
+
+  <% if (flash && flash.err && flash.err.institution) { %>
+    <div class="alert alert-danger" style="padding-bottom:0px;">
+  <% } %>
+    <div class="form-group">
+      <label for="institution">Institucion</label>
+      <input type="institution" class="form-control" name="institution" id="institution" placeholder="Ingresa tu institucion" required/>
+      <% if (flash && flash.err && flash.err.institution) { %>
+        <%- flash.err.institution[0].message %>
+      <% } %>
+    </div>
+  <% if (flash && flash.err && flash.err.institution) { %>
+    </div>
+  <% } %>
+
+  <% if (flash && flash.err && flash.err.institution) { %>
+    <div class="alert alert-danger" style="padding-bottom:0px;">
+  <% } %>
+    <div class="form-group">
+      <label for="cargo">Cargo</label>
+      <input type="cargo" class="form-control" name="cargo" id="cargo" placeholder="Ingresa tu cargo" required/>
+      <% if (flash && flash.err && flash.err.cargo) { %>
+        <%- flash.err.cargo[0].message %>
+      <% } %>
+    </div>
+  <% if (flash && flash.err && flash.err.cargo) { %>
+    </div>
+  <% } %>
+
+  <% if (flash && flash.err && flash.err.email) { %>
+    <div class="alert alert-danger" style="padding-bottom:0px;">
+  <% } %>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" name="email" id="email" placeholder="Ingresa tu email" required/>
+      <% if (flash && flash.err && flash.err.email) { %>
+        <%- flash.err.email[0].message %>
+      <% } %>
+    </div>
+  <% if (flash && flash.err && flash.err.email) { %>
+    </div>
+  <% } %>
+
+  <% if (flash && flash.err && flash.err.password) { %>
+    <div class="alert alert-danger" style="padding-bottom:0px;">
+  <% } %>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" name="password" id="password" placeholder="Ingresa tu password" required/>
+      <% if (flash && flash.err && flash.err.password) { %>
+        <%- flash.err.password[0].message %>
+      <% } %>
+    </div>
+  <% if (flash && flash.err && flash.err.password) { %>
+    </div>
+  <% } %>
+
+  <% if (flash && flash.err && flash.err.password_confirmation) { %>
+    <div class="alert alert-danger" style="padding-bottom:0px;">
+  <% } %>
+    <div class="form-group">
+      <label for="password_confirmation">Repita el password</label>
+      <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Repita el password" required equalTo='#password'/>
+      <% if (flash && flash.err && flash.err.password_confirmation) { %>
+        <%- flash.err.password_confirmation[0].message %>
+      <% } %>
+    </div>
+  <% if (flash && flash.err && flash.err.password_confirmation) { %>
+    </div>
+  <% } %>
+  <button type="submit" class="btn btn-primary btn-default">Crear</button>
+  <input type="hidden" name="_csrf" value="<%= _csrf %>">
+</form>

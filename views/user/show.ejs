@@ -1,0 +1,64 @@
+<div class='container'>
+  <div class="panel-heading">
+    <h3>
+      <% if (user.isVerified) { %>
+        <small><span class="glyphicon glyphicon-ok-sign" title="Verified" id="verified" style="color: #428bca;"></span></small>
+      <% } %>
+      <% if (user.name) { %>
+        <%= user.name %>
+      <% } %>
+      <small><%= user.username %></small>
+      <% if (user.location) { %>
+        <small><span class="label label-default"><%= user.location %></span></small>
+      <% } %>
+      <% if (user.website) { %>
+        <small><a href="<%= user.website %>"><span class="label label-primary">web</span></a></small>
+      <% } %>
+    </h3>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <% if (user.bio) { %>
+          <div class="well"><%= user.bio %></div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <ul class="nav nav-pills">
+    <li <% if (selected == 'tweets') { %> class="active" <% } %>>
+      <a href="/<%= user.username %>" id="tweets">
+      <span class="badge pull-right"><%- data.tweetsCount %></span>
+      Tweets
+      </a>
+    </li>
+    <li <% if (selected == 'followers') { %> class="active" <% } %>>
+      <a href="/<%= user.username %>/followers" id="followers">
+      <span class="badge pull-right"><%- user.followers.length %></span>
+      Followers
+      </a>
+    </li>
+    <li <% if (selected == 'following') { %> class="active" <% } %>>
+      <a href="/<%= user.username %>/following" id="following">
+      <span class="badge pull-right"><%- user.following.length %></span>
+      Following
+      </a>
+    </li>
+    <li>
+      <% if (currentUser.id == user.id) { %>
+      <a href="/settings/profile">Edit</a>
+      <% } else if (currentUser.following.indexOf(user.id) == -1) { %>
+      <a href="/follow/<%= user.username %>">Follow</a>
+      <% } else { %>
+      <a href="/unfollow/<%= user.username %>">Unfollow</a>
+      <% } %>
+    </li>
+    <li>
+    </ul>
+  </div>
+  <hr>
+  <div style="width: 80%; margin:0 auto;">
+    <%- partial('../' + partial_name + '.ejs', data) %>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+{
+  "Joe": {
+    "username": "joesomebody",
+    "email": "joe@hirundo.com",
+    "password": "badass",
+    "password_confirmation": "badass"
+  },
+
+  "Jimmy": {
+    "email": "jim@hirundo.com",
+    "password": "hardcorecandy",
+    "password_confirmation": "hardcorecandy"
+  },
+
+  "Jay": {
+    "username": "holyjay",
+    "password": "sweetsteen",
+    "password_confirmation": "sweetsteen"
+  },
+
+  "Fred": {
+    "username": "fredfred",
+    "email": "fred@hirundo.com"
+  },
+
+  "Spike": {
+    "username": "spiker",
+    "email": "spike@hirundo.com",
+    "password": "gohardorhome",
+    "password_confirmation": "gohardorgohome"
+  }
+}

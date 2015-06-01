@@ -1,0 +1,47 @@
+<% if (data.tweets.length == 0) { %>
+  <div class="alert alert-info" style="margin-top: 15px;">
+  <%= data.emptyMessage %>
+  </div>
+<% } %>
+<% _.each(data.tweets, function(tweet) { %>
+  <% if(tweet.priority == 2){ %>
+    <div class="media" id="<%= tweet.priority == 1 ? 'priority-alta' : tweet.priority == 2 ? 'priority-media' : 'priority-baja' %>">
+        <div class="media-body">
+            <div class="media-heading">
+                <div class="row">
+                  <div class="col-xs-4">
+                    <a class="" href="/<%= tweet.author.username %>">
+                      <img class="media-object" src="/photo/show/<%- tweet.author.id %>/64" alt="<%= tweet.author.username %>">
+                    </a>
+                  </div>
+                  <div class="col-xs-8">
+                    <div class="row username">
+                      <a href="/<%= tweet.author.username %>">
+                        <%= tweet.author.cargo %>
+                      </a>
+                    </div>
+                    <div class="row">
+                      <%= tweet.author.name %>
+                    </div>
+                    <div class="row timestamp">
+                      <%
+                        var date = moment(tweet.createdAt);
+                      %>
+                      <%= date.format('MMMM Do YYYY, h:mm:ss a') %>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <hr class="style-two">
+            <blockquote>
+              <p>
+                  <%- tweet.content.replace(/(#([^\s]*))/g, '<a href="/search/hash:$2">$1</a>').replace(/(@([^\s]*))/g, '<a href="/$2">$1</a>') %>
+                  <% if (tweet.location) { %>
+                      <span class="label label-info">En algun lugar cercano a <%= tweet.location %></span>
+                  <% } %>
+              </p>
+            </blockquote>
+        </div>
+    </div>
+  <%}%>
+<% }) %>

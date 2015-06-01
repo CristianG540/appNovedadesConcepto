@@ -1,0 +1,14 @@
+<div class='container' style="width: 60%;">
+  <% if (data.users) { %>
+    <div>
+      <h2>Users</h2>
+      <%- partial('../' + partial_users + '.ejs', data) %>
+    </div>
+  <% } %>
+  <% if (data.tweets) { %>
+    <div>
+      <h2>Tweets</h2>
+      <%- partial('../' + partial_tweets + '.ejs', data) %>
+    </div>
+  <% } %>
+</div>
