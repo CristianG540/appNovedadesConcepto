@@ -94,7 +94,22 @@ function relatives(relation) {
 module.exports = {
 
   new: function(req, res) {
-    res.view();
+
+    InstitutionData.find().exec(function(err, inst){
+      var institUniq;
+      if(err){ return res.serverError(err); }
+
+      // con lodash busco los documetos unicos segun el atributo 'daneInstitucion'
+      institUniq = _.uniq(inst, 'daneInstitucion');
+      // aqui busco los documentos donde el departamento sea antioquia
+      institUniq = _.where(institUniq, {'codDepartamento':5});
+
+      // Envia el array de usuarios a la pagina /views/index.ejs
+      res.view({
+          'institutions': institUniq
+      });
+    });
+
   },
 
   create: function(req, res, next) {

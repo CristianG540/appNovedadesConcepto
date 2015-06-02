@@ -47,9 +47,11 @@ module.exports.routes = {
   'get /feed/last': 'FeedController.last',
   'get /feed/lastwidget/:institution': 'FeedController.lastWidget',
   'get /feed/widget/:institution': 'FeedController.widget',
+  'get /institutionData': 'InstitutionDataController.index',
   '/:username': 'UserController.show',
   'post /user/update': 'UserController.update',
-  'post /user/destroy': 'UserController.destroy'
+  'post /user/destroy': 'UserController.destroy',
+
 
   /*
   // But what if you want your home page to display

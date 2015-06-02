@@ -13,7 +13,17 @@
   </div>
   <div class="form-group">
     <label for="name">Institucion</label>
-    <input type="text" class="form-control" name="institution" id="institution" value="<%= currentUser.institution %>" maxlength="40" placeholder="Ingresa tu institucion">
+    <select class="form-control" name="institution" id="institution" required>
+        <% _.each(institutions, function(institution){%>
+
+            <% if(currentUser.institution == institution.institucionEducativa){ %>
+              <option value="<%= institution.institucionEducativa %>" selected><%= institution.institucionEducativa %></option>
+            <% }else{ %>
+              <option value="<%= institution.institucionEducativa %>"><%= institution.institucionEducativa %></option>
+            <% } %>
+
+        <% }); %>
+    </select>
   </div>
   <div class="form-group">
     <label for="name">Cargo</label>

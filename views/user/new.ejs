@@ -20,7 +20,12 @@
   <% } %>
     <div class="form-group">
       <label for="institution">Institucion</label>
-      <input type="institution" class="form-control" name="institution" id="institution" placeholder="Ingresa tu institucion" required/>
+      <select class="form-control" name="institution" id="institution" required>
+          <option value="nan" selected>Ingresa tu institucion</option>
+          <% _.each(institutions, function(institution){%>
+              <option value="<%= institution.institucionEducativa %>"><%= institution.institucionEducativa %></option>
+          <% }); %>
+      </select>
       <% if (flash && flash.err && flash.err.institution) { %>
         <%- flash.err.institution[0].message %>
       <% } %>
