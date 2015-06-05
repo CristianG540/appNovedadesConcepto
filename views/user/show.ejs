@@ -30,19 +30,19 @@
     <li <% if (selected == 'tweets') { %> class="active" <% } %>>
       <a href="/<%= user.username %>" id="tweets">
       <span class="badge pull-right"><%- data.tweetsCount %></span>
-      Tweets
+      Novedades
       </a>
     </li>
     <li <% if (selected == 'followers') { %> class="active" <% } %>>
       <a href="/<%= user.username %>/followers" id="followers">
       <span class="badge pull-right"><%- user.followers.length %></span>
-      Followers
+      Seguidores
       </a>
     </li>
     <li <% if (selected == 'following') { %> class="active" <% } %>>
       <a href="/<%= user.username %>/following" id="following">
       <span class="badge pull-right"><%- user.following.length %></span>
-      Following
+      Seguir
       </a>
     </li>
     <li>
